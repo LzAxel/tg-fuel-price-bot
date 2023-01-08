@@ -1,6 +1,5 @@
 import asyncio
 import aioschedule as schedule
-import time
 from aiogram import executor
 from bot import dp, send_changes
 from database import Database
@@ -14,6 +13,11 @@ logging.basicConfig(level=logging.INFO)
 async def check_price_updates():
     old_prices = db.get_prices()
     new_prices = get_cost()
+    if not old_prices:
+        for i in new_prices.keys():
+            db.save_price(i, new_prices[i]["price"], 0)
+        
+        return
 
     changed = []
     for i in new_prices.keys():
