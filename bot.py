@@ -5,11 +5,12 @@ from aiogram import Bot, executor, Dispatcher, types
 from config import BOT_TOKEN
 from database import Database
 from datetime import date
+from pathlib import Path
 
 
 bot = Bot(BOT_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot)
-db = Database("db.sqlite")
+db = Database(Path(Path(__file__).parent.resolve(), "db.sqlite"))
 
 
 @dp.message_handler(commands=["start"])

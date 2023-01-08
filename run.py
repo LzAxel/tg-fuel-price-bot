@@ -5,8 +5,9 @@ from bot import dp, send_changes
 from database import Database
 from parse import get_cost
 import logging
+from pathlib import Path
 
-db = Database("db.sqlite")
+db = Database(Path(Path(__file__).parent.resolve(), "db.sqlite"))
 
 logging.basicConfig(level=logging.INFO)
 
