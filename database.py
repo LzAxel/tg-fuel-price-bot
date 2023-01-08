@@ -47,7 +47,7 @@ class Database():
             self.cursor.execute(r"INSERT OR REPLACE INTO fuel (name, price, compare) VALUES (?, ?, ?)",
                                 (name, price, compare))
     
-    def get_prices(self) -> dict[dict]:
+    def get_prices(self) -> dict:
         prices = dict()
         with self.connection:
             self.cursor.execute(r"SELECT name, price, compare FROM fuel")

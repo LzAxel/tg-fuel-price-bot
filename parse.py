@@ -27,22 +27,21 @@ def parse_html(html: str) -> list:
         class_fuel_name = item.get("class")[-1]
         fuel_name = class_fuel_name.split("-")[-1]
         price = item.get_text(".", strip=True)
-        match fuel_name:
-            case "95p":
-                formatted_fuel_name = "95 Премиум"
-            case "dt":
-                formatted_fuel_name = "ДТ"
-            case "dte":
-                formatted_fuel_name = "ДТ Евро"
-            case _:
-                formatted_fuel_name = fuel_name
+        if fuel_name == "95p":
+            formatted_fuel_name = "95 Премиум"
+        elif fuel_name == "dt":
+            formatted_fuel_name = "ДТ"
+        elif fuel_name == "dte":
+            formatted_fuel_name = "ДТ Евро"
+        else:
+            formatted_fuel_name = fuel_name
 
         prices[formatted_fuel_name] = {"price": float(price), "compare": 0}
     
     return prices
 
 
-def get_cost() -> dict[dict]:
+def get_cost() -> dict:
     html = get_html(PRICE_URL)
     cost = parse_html(html)
 
